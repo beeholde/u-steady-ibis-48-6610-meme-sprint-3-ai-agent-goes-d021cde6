@@ -58,7 +58,9 @@ def main():
               % (width, height, MAX_DIM, MAX_DIM), file=sys.stderr)
         return 1
 
-    os.makedirs(os.path.dirname(out), exist_ok=True)
+    parent = os.path.dirname(out)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
     shutil.copyfile(src, out)
     if sha256_file(src) != sha256_file(out):
         print("copy mismatch: output differs from entry.png", file=sys.stderr)
